@@ -23,6 +23,20 @@ class Repository {
 
     return $items;
   }
+
+  function findItem($query) {
+    $res = $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+    $items = array();
+    $res->data_seek(0);
+    while ($row = $res->fetch_assoc()) {
+      array_push($items, $row) or die('could not add to array');
+    }
+    return $items[0];
+  }
+
+  function update($query) {
+    $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+  }
 }
 
 ?>
