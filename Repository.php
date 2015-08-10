@@ -34,7 +34,12 @@ class Repository {
     return $items[0];
   }
 
-  function update($query) {
+  function create($query) {
+    $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+    return mysqli_insert_id($this->db);
+  }
+
+  function query($query) {
     $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
   }
 }

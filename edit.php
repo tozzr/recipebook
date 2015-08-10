@@ -13,6 +13,10 @@ $r = $repo->findRecipe($_GET['id']);
 
 echo "<!DOCTYPE html>\n" .
      "<html>\n" .
+     "  <head>\n" .
+     "    <title>Rezeptbuch f&uuml;r Anke und Martin</title>\n" .
+     "    <meta charset=\"utf-8\" />\n" .
+     "  </head>\n" .
      "  <body>\n" .
      "    <form method=\"POST\">\n" .
      "      <input type=\"hidden\" name=\"id\" value=\"" . $r['id'] . "\" />\n" .
