@@ -5,8 +5,12 @@ class Repository {
   private $db;
 
   function __construct() {
-    $this->db = mysqli_connect("localhost", "recipebook", "recipes2015", "recipebook")
-                  or die ("error: no connection to db. wrong credentials.");
+    $this->db = mysqli_connect(
+      'localhost',
+      "chef",
+      "menu",
+      "recipebook"
+    ) or die ("error: no connection to db. wrong credentials.");
   }
 
   function __destruct() {

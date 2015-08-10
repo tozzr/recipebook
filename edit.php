@@ -18,15 +18,15 @@ echo "<!DOCTYPE html>\n" .
      "    <meta charset=\"utf-8\" />\n" .
      "  </head>\n" .
      "  <body>\n" .
-     "    <form method=\"POST\">\n" .
+     "    <form method=\"POST\" enctype=\"multipart/form-data\">\n" .
      "      <input type=\"hidden\" name=\"id\" value=\"" . $r['id'] . "\" />\n" .
-     "      <label>Titel</label><input type=\"text\" name=\"title\" value=\"" . $r['title'] . "\" />\n" .
+     "      <label>Titel</label><input type=\"text\" name=\"title\" value=\"" . utf8_encode($r['title']) . "\" />\n" .
      "      <br />\n" .
-     "      <label>Untertitel</label><input type=\"text\" name=\"subtitle\" value=\"" . $r['subtitle'] . "\" />\n" .
+     "      <label>Untertitel</label><input type=\"text\" name=\"subtitle\" value=\"" . utf8_encode($r['subtitle']) . "\" />\n" .
      "      <br />\n" .
-     "      <label>Text</label><textarea name=\"text\" rows=\"25\" cols=\"80\">" . $r['text'] . "</textarea>\n" .
+     "      <label>Text</label><textarea name=\"text\" rows=\"25\" cols=\"80\">" . utf8_encode($r['text']) . "</textarea>\n" .
      "      <br />\n" .
-     "      <img src=\"data:image/jpeg;base64," . base64_encode($r['image']) . "\" width=\"100%\" />\n" .
+     "      <img src=\"data:image/jpeg;base64," . base64_encode($r['image']) . "\" height=\"400\" />\n" .
      "      <br />\n" .
      "      <button type=\"submit\">save</button>\n" .
      "      <a href=\"list.php\">cancel</a>\n" .

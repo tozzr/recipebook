@@ -10,7 +10,8 @@ if (isset($_POST['title'])) {
   $id = $repo->createRecipe(
     $_POST['title'],
     $_POST['subtitle'],
-    $_POST['text']
+    $_POST['text'],
+    file_get_contents($_FILES['image']['tmp_name'])
   );
   header('Location: ./edit.php?id=' . $id);
 }
@@ -22,7 +23,7 @@ echo "<!DOCTYPE html>\n" .
      "    <meta charset=\"utf-8\" />\n" .
      "  </head>\n" .
      "  <body>\n" .
-     "    <form method=\"POST\">\n" .
+     "    <form method=\"POST\" enctype=\"multipart/form-data\">\n" .
      "      <label>Titel</label><input type=\"text\" name=\"title\" value=\"\" />\n" .
      "      <br />\n" .
      "      <label>Untertitel</label><input type=\"text\" name=\"subtitle\" value=\"\" />\n" .

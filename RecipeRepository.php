@@ -18,10 +18,10 @@ class RecipeRepository extends Repository {
       );
     }
 
-    function createRecipe($title, $subtitle, $text) {
+    function createRecipe($title, $subtitle, $text, $image) {
       return $this->create(
-        "INSERT INTO recipe (title, subtitle, text) " .
-        "VALUES('" . $title . "', '" . $subtitle . "', '" . $text . "');"
+        "INSERT INTO recipe (title, subtitle, text, image) " .
+        "VALUES('" . $title . "', '" . $subtitle . "', '" . $text . "', '" . addslashes($image) . "');"
       );
     }
 
