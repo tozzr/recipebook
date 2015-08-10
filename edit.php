@@ -22,6 +22,8 @@ echo "<!DOCTYPE html>\n" .
      "      <br />\n" .
      "      <label>Text</label><textarea name=\"text\" rows=\"25\" cols=\"80\">" . $r['text'] . "</textarea>\n" .
      "      <br />\n" .
+     "      <img src=\"data:image/jpeg;base64," . base64_encode($r['image']) . "\" width=\"100%\" />\n" .
+     "      <br />\n" .
      "      <button type=\"submit\">save</button>\n" .
      "      <a href=\"list.php\">cancel</a>\n" .
      "    </form>\n" .
