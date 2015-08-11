@@ -6,7 +6,7 @@ class RecipeRepository extends Repository {
 
     function findRecipes() {
       return $this->findItems(
-        "SELECT * FROM recipe r ORDER BY position ASC;"
+        "SELECT * FROM recipe ORDER BY position ASC;"
       );
     }
 
@@ -19,13 +19,17 @@ class RecipeRepository extends Repository {
     }
 
     function moveRecipe($id, $pos) {
+      $res = $this->findItem("SELECT id FROM recipe WHERE position = " . $pos);
+      $otherId = $res['id'];
+      $res = $this->findItem("SELECT position FROM recipe WHERE id = " . $id);
+      $oldPos = $res['position'];
       $this->query(
-        "UPDATE recipe SET pos = pos+1 " .
-        "WHERE pos = " . $pos
+        "UPDATE recipe SET position = " . $pos . " " .
+        "WHERE id = " . $id
       );
       $this->query(
-        "UPDATE recipe SET pos = pos-1 " .
-        "WHERE id = " . $id
+        "UPDATE recipe SET position = " . $oldPos . " " .
+        "WHERE id = " . $otherId
       );
     }
 

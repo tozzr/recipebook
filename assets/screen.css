@@ -1,12 +1,24 @@
 body {
-  background: #FFE;
+  background: #FFF;
   margin: 0;
   padding: 2.5em;
 }
 
 table {
-  background: #CCC;
+  background: #FFF;
   margin: auto;
+}
+
+tr {
+  line-height: 2.5em;
+}
+
+tr:hover {
+  background: #EEE;
+}
+
+tr.active {
+  background: #ED0;
 }
 
 th {
@@ -14,10 +26,13 @@ th {
   font-size: 1.5em;
   text-align: left;
   padding: 0 0 0 0.5em;
+  border-bottom: 1px solid #AAA;
 }
 
 td {
   padding: 0.5em;
+  line-height: 1.5em;
+  border-bottom: 1px solid #DDD;
 }
 
 .left {

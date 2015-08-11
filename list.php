@@ -6,8 +6,10 @@ require_once('./RecipeRepository.php');
 
 $repo = new RecipeRepository();
 
-if (isset($_GET['id']) && isset($_GET['pos']))
+if (isset($_GET['id']) && isset($_GET['pos'])) {
   $repo->moveRecipe($_GET['id'], $_GET['pos']);
+  header('Location: ./list.php?active=' . $_GET['id']);
+}
 
 $recipes = $repo->findRecipes();
 
