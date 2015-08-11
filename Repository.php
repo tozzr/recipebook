@@ -44,7 +44,7 @@ class Repository {
   }
 
   function query($query) {
-    $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+    return $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
   }
 }
 

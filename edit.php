@@ -7,31 +7,18 @@ require_once('./RecipeRepository.php');
 $repo = new RecipeRepository();
 
 if (isset($_POST['id'])) {
-  $repo->updateRecipe($_POST['id'], $_POST['title'], $_POST['subtitle'], $_POST['text']);
+  $repo->updateRecipe(
+    $_POST['id'],
+    utf8_decode($_POST['title']),
+    utf8_decode($_POST['subtitle']),
+    utf8_decode($_POST['authors']),
+    utf8_decode($_POST['text'])
+  );
 }
 $r = $repo->findRecipe($_GET['id']);
 
-echo "<!DOCTYPE html>\n" .
-     "<html>\n" .
-     "  <head>\n" .
-     "    <title>Rezeptbuch f&uuml;r Anke und Martin</title>\n" .
-     "    <meta charset=\"utf-8\" />\n" .
-     "  </head>\n" .
-     "  <body>\n" .
-     "    <form method=\"POST\" enctype=\"multipart/form-data\">\n" .
-     "      <input type=\"hidden\" name=\"id\" value=\"" . $r['id'] . "\" />\n" .
-     "      <label>Titel</label><input type=\"text\" name=\"title\" value=\"" . utf8_encode($r['title']) . "\" />\n" .
-     "      <br />\n" .
-     "      <label>Untertitel</label><input type=\"text\" name=\"subtitle\" value=\"" . utf8_encode($r['subtitle']) . "\" />\n" .
-     "      <br />\n" .
-     "      <label>Text</label><textarea name=\"text\" rows=\"25\" cols=\"80\">" . utf8_encode($r['text']) . "</textarea>\n" .
-     "      <br />\n" .
-     "      <img src=\"data:image/jpeg;base64," . base64_encode($r['image']) . "\" height=\"400\" />\n" .
-     "      <br />\n" .
-     "      <button type=\"submit\">save</button>\n" .
-     "      <a href=\"list.php\">cancel</a>\n" .
-     "    </form>\n" .
-     "  </body>\n" .
-     "</html>\n";
+include('./views/layout_top.php');
+include('./views/edit.php');
+include('./views/layout_bottom.php');
 
 ?>
