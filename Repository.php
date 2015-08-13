@@ -5,46 +5,69 @@ class Repository {
   private $db;
 
   function __construct() {
-    $this->db = mysqli_connect(
-      'localhost',
-      "chef",
-      "menu",
-      "recipebook"
-    ) or die ("error: no connection to db. wrong credentials.");
+    $this->db = new PDO("mysql:host=localhost;dbname=recipebook", "chef", "menu")
+      or die ("error: no connection to db. wrong credentials.");
   }
 
   function __destruct() {
-    $this->db->close();
+    $this->db = null;
   }
 
   function findItems($query) {
-    $res = $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
-    $items = array();
-    $res->data_seek(0);
-    while ($row = $res->fetch_assoc()) {
-      array_push($items, $row) or die('could not add to array');
-    }
-
-    return $items;
+    $statement = $this->query($query);
+    return $statement->fetchAll();
   }
 
-  function findItem($query) {
-    $res = $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+  function findItemById($name, $id) {
+    $statement = $this->query("SELECT * FROM " . $name . " WHERE id = :id;", array("id" => $id));
     $items = array();
-    $res->data_seek(0);
-    while ($row = $res->fetch_assoc()) {
+    while ($row = $statement->fetch()) {
       array_push($items, $row) or die('could not add to array');
     }
     return $items[0];
   }
 
-  function create($query) {
-    $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
-    return mysqli_insert_id($this->db);
+  function findItemByPosition($name, $pos) {
+    $statement = $this->query("SELECT * FROM " . $name . " WHERE position = :pos;", array("pos" => $pos));
+    $items = array();
+    while ($row = $statement->fetch()) {
+      array_push($items, $row) or die('could not add to array');
+    }
+    return $items[0];
   }
 
-  function query($query) {
-    return $this->db->query($query) or die("query " . $query . " is wrong: " . mysql_error());
+  function countItems($name) {
+    $statement = $this->query("SELECT COUNT(id) AS count FROM " . $name . ";");
+    $res = array();
+    while ($row = $statement->fetch()) {
+      array_push($res, $row) or die('could not add to array');
+    }
+    return $res[0];
+  }
+
+  function create($query, $params) {
+    $this->query($query, $params);
+    return $this->db->lastInsertId();
+  }
+
+  function query($sql, $params = null) {
+    $statement = $this->db->prepare($sql) or die("statement wrong");
+    if ($params)
+      $statement->execute($params) or die("execute failed with params: " . $this->db->errorInfo());
+    else
+      $statement->execute() or die("exuecte failed with params: " . $this->db->errorInfo());
+    return $statement;
+  }
+
+  function saveBlob($sql, $id, $data) {
+    $statement = $this->db->prepare($sql);
+    $statement->bindParam(':image', $data, PDO::PARAM_LOB);
+    $statement->bindParam(':id', $id);
+    $statement->execute();
+  }
+
+  function delete($name, $id) {
+    $this->query("DELETE FROM " . $name . " WHERE id = :id", array("id" => $id));
   }
 }
 

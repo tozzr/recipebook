@@ -7,16 +7,18 @@ require_once('./RecipeRepository.php');
 $repo = new RecipeRepository();
 
 if (isset($_POST['title'])) {
-  if(file_exists($_FILES['image']['tmp_name']))
-    $file_data = file_get_contents($_FILES['image']['tmp_name']);
+  if(file_exists($_FILES['image']['tmp_name'])) {
+    $tmpName  = $_FILES['image']['tmp_name'];
+    $fp = fopen($tmpName, 'rb'); // read binary
+  }
   else
-    $file_data = '';
+    $fp = null;
   $id = $repo->createRecipe(
     utf8_decode($_POST['title']),
     utf8_decode($_POST['subtitle']),
     utf8_decode($_POST['authors']),
     utf8_decode($_POST['text']),
-    $file_data
+    $fp
   );
   header('Location: ./edit.php?id=' . $id);
 }

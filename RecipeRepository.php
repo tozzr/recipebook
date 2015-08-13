@@ -29,21 +29,27 @@ class RecipeRepository extends Repository {
 
     function createRecipe($title, $subtitle, $authors, $text, $image) {
       $res = $this->countItems("recipe");
-      return $this->create(
-        "INSERT INTO recipe (title, subtitle, authors, text, image, position) " .
-        "VALUES(:title, :subtitle, :authors, :text, :image, :pos)",
+      $id = $this->create(
+        "INSERT INTO recipe (title, subtitle, authors, text, position) " .
+        "VALUES(:title, :subtitle, :authors, :text, :pos)",
         array(
           "title" => $title,
           "subtitle" => $subtitle,
           "authors" => $authors,
           "text" => $text,
-          "image" => addslashes($image),
           "pos" => $res['count']
         )
       );
+      if ($image)
+        $this->saveBlob(
+          "UPDATE recipe SET image = :image WHERE id = :id",
+          $id,
+          $image
+        );
+      return $id;
     }
 
-    function updateRecipe($id, $title, $subtitle, $authors, $text) {
+    function updateRecipe($id, $title, $subtitle, $authors, $text, $image) {
       $this->query(
         "UPDATE recipe SET title = :title, " .
         "subtitle = :subtitle, " .
@@ -58,6 +64,12 @@ class RecipeRepository extends Repository {
           "text" => $text
         )
       );
+      if ($image)
+        $this->saveBlob(
+          "UPDATE recipe SET image = :image WHERE id = :id",
+          $id,
+          $image
+        );
     }
 
     function deleteRecipe($id) {

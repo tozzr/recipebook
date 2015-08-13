@@ -15,9 +15,11 @@ require_once('./views/_helper.php');
   </div>
   <div class="right">
     <img src="data:image/jpeg;base64,<?php puts(base64_encode($r['image'])) ?>" max-height="500" width="100%"/>
+    <br />
+    <input type="file" name="image" />
   </div>
   <div class="full">
     <button type="submit">save</button>
-    <a href="list.php">cancel</a>
+    <a href="list.php?active=<?php puts($r['id']) ?>">cancel</a>
   </div>
 </form>
