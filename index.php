@@ -40,11 +40,11 @@ $app->post('/recipes', function() use($app, $repo){
   else
     $fp = null;
   $id = $repo->createRecipe(
-    utf8_decode($app->request->post('title')),
-    utf8_decode($app->request->post('subtitle')),
-    utf8_decode($app->request->post('authors')),
-    utf8_decode($app->request->post('email')),
-    utf8_decode($app->request->post('text')),
+    $app->request->post('title'),
+    $app->request->post('subtitle'),
+    $app->request->post('authors'),
+    $app->request->post('email'),
+    $app->request->post('text'),
     $fp
   );
   $app->redirect('/recipes/' . $id);
@@ -67,11 +67,11 @@ $app->put('/recipes/:id', function ($id) use($app, $repo) {
     $fp = null;
   $repo->updateRecipe(
     $id,
-    utf8_decode($app->request->post('title')),
-    utf8_decode($app->request->post('subtitle')),
-    utf8_decode($app->request->post('authors')),
-    utf8_decode($app->request->post('email')),
-    utf8_decode($app->request->post('text')),
+    $app->request->post('title'),
+    $app->request->post('subtitle'),
+    $app->request->post('authors'),
+    $app->request->post('email'),
+    $app->request->post('text'),
     $fp
   );
   $app->redirect('/recipes/' . $id);
