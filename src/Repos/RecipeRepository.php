@@ -1,6 +1,8 @@
 <?php
 
-require_once('./Repository.php');
+namespace Recipebook\Repos;
+
+require_once(__DIR__ . '/Repository.php');
 
 class RecipeRepository extends Repository {
 

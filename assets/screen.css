@@ -63,3 +63,40 @@ form label {
   width: 33%;
   display: inline-block;
 }
+
+a.action {
+  background: #EEE;
+  color: #666;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  text-decoration: none;
+  border: 1px solid #AAA;
+}
+a.action:hover {
+  background: #666;
+  color: #EEE;
+  border: 1px solid #333;
+}
+
+a.cancel {
+  background: #E00;
+  color: white;
+  border: 1px solid #F00;
+}
+a.cancel:hover {
+  background: #c00;
+  border: 1px solid #F00;
+}
+
+button[type=submit] {
+  background: #0C0;
+  color: #FFF;
+  border-radius: 0.25em;
+  padding: 0.5em;
+  text-decoration: none;
+  border: 1px solid #0F0;
+  cursor: pointer;
+}
+button[type=submit]:hover {
+  background: #090;
+}

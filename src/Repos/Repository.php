@@ -1,11 +1,13 @@
 <?php
 
+namespace Recipebook\Repos;
+
 class Repository {
 
   private $db;
 
   function __construct() {
-    $this->db = new PDO("mysql:host=localhost;dbname=recipebook", "chef", "menu")
+    $this->db = new \PDO("mysql:host=localhost;dbname=recipebook;charset=utf8", "chef", "menu")
       or die ("error: no connection to db. wrong credentials.");
   }
 
@@ -61,7 +63,7 @@ class Repository {
 
   function saveBlob($sql, $id, $data) {
     $statement = $this->db->prepare($sql);
-    $statement->bindParam(':image', $data, PDO::PARAM_LOB);
+    $statement->bindParam(':image', $data, \PDO::PARAM_LOB);
     $statement->bindParam(':id', $id);
     $statement->execute();
   }

@@ -1,8 +1,6 @@
-<?php
-require_once('./views/_helper.php');
-?>
-
-<form method="POST" enctype="multipart/form-data">
+{% extends "layout.html" %}
+{% block content %}
+<form action="/recipes" method="POST" enctype="multipart/form-data">
   <div class="left">
     <label>Titel</label><input type="text" name="title" value="" />
     <br />
@@ -10,7 +8,7 @@ require_once('./views/_helper.php');
     <br />
     <label>Autoren</label><input type="text" name="authors" value="" />
     <br />
-    <label>Text</label><textarea name="text" rows="25" cols="80"></textarea>
+    <label>Text</label><textarea name="text" rows="28" cols="80"></textarea>
     <br />
     <label>E-Mail</label><input type="text" name="email" value="" />
   </div>
@@ -19,6 +17,7 @@ require_once('./views/_helper.php');
   </div>
   <div class="full">
     <button type="submit">save</button>
-    <a href="list.php">cancel</a>
+    <a href="/recipes" class="action cancel">cancel</a>
   </div>
 </form>
+{% endblock %}

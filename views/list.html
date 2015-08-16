@@ -1,0 +1,59 @@
+{% extends "layout.html" %}
+{% block content %}
+<script>
+  function confirmDelete(id) {
+    if (confirm('delete?')) {
+      $form = document.getElementById('deleteForm');
+      $form.action = '/recipes/' + id;
+      $form.submit();
+    }
+  }
+</script>
+<form id="deleteForm" method="POST">
+  <input type="hidden" name="_METHOD" value="DELETE">
+</form>
+
+<table cellspacing="0" cellpadding="0">
+  <colspan>
+    <col width="5%" />
+    <col width="35%" />
+    <col width="30%" />
+    <col width="5%" />
+    <col width="5%" />
+    <col width="10%" />
+  </colspan>
+  <tbody>
+    <tr>
+      <th></th>
+      <th>Rezept</th>
+      <th>Author</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+    {% for r in recipes %}
+    <tr {% if activeId == r.id %}class="active"{% endif %}>
+        <td>{{ r.id }}</td>
+        <td>{{ r.title }}</td>
+        <td>{{ r.authors }}</td>
+        <td><a href="/recipes/{{ r.id }}" class="action">edit</a></td>
+        <td><a href="javascript:confirmDelete({{ r.id }});" class="action">delete</a></td>
+        <td>
+            {% if not loop.first %}
+              <a href="/recipes/?id={{ r.id }}&pos={{ r.position-1 }}" class="action">up</a>
+            {% endif %}
+            {% if not loop.last %}
+              <a href="/recipes/?id={{ r.id }}&pos={{ r.position+1 }}" class="action">down</a>
+            {% endif %}
+        </td>
+      </tr>
+    {% endfor %}
+  </tbody>
+  <tfoot>
+    <tr>
+      <td colspan="5"></td>
+      <td><a href="/recipes/form" class="action">add</a></td>
+    </tr>
+  </tfoot>
+</table>
+{% endblock %}
