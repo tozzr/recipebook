@@ -27,15 +27,16 @@ class RecipeRepository extends Repository {
       );
     }
 
-    function createRecipe($title, $subtitle, $authors, $text, $image) {
+    function createRecipe($title, $subtitle, $authors, $email, $text, $image) {
       $res = $this->countItems("recipe");
       $id = $this->create(
-        "INSERT INTO recipe (title, subtitle, authors, text, position) " .
-        "VALUES(:title, :subtitle, :authors, :text, :pos)",
+        "INSERT INTO recipe (title, subtitle, authors, email, text, position) " .
+        "VALUES(:title, :subtitle, :authors, :email, :text, :pos)",
         array(
           "title" => $title,
           "subtitle" => $subtitle,
           "authors" => $authors,
+          "email" => $email,
           "text" => $text,
           "pos" => $res['count']
         )
@@ -49,11 +50,12 @@ class RecipeRepository extends Repository {
       return $id;
     }
 
-    function updateRecipe($id, $title, $subtitle, $authors, $text, $image) {
+    function updateRecipe($id, $title, $subtitle, $authors, $email, $text, $image) {
       $this->query(
         "UPDATE recipe SET title = :title, " .
         "subtitle = :subtitle, " .
         "authors = :authors, " .
+        "email = :email, " .
         "text = :text " .
         "WHERE id = :id;",
         array(
@@ -61,6 +63,7 @@ class RecipeRepository extends Repository {
           "title" => $title,
           "subtitle" => $subtitle,
           "authors" => $authors,
+          "email" => $email,
           "text" => $text
         )
       );

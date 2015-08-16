@@ -18,6 +18,7 @@ if (isset($_POST['id'])) {
     utf8_decode($_POST['title']),
     utf8_decode($_POST['subtitle']),
     utf8_decode($_POST['authors']),
+    utf8_decode($_POST['email']),
     utf8_decode($_POST['text']),
     $fp
   );

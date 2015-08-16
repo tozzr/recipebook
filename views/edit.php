@@ -12,6 +12,8 @@ require_once('./views/_helper.php');
     <label>Autoren</label><input type="text" name="authors" value="<?php puts($r['authors']) ?>" />
     <br />
     <label>Text</label><textarea name="text" rows="28" cols="80"><?php puts($r['text']) ?></textarea>
+    <br />
+    <label>E-Mail</label><input type="text" name="email" value="<?php puts($r['email']) ?>" />
   </div>
   <div class="right">
     <img src="data:image/jpeg;base64,<?php puts(base64_encode($r['image'])) ?>" max-height="500" width="100%"/>

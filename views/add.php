@@ -11,6 +11,8 @@ require_once('./views/_helper.php');
     <label>Autoren</label><input type="text" name="authors" value="" />
     <br />
     <label>Text</label><textarea name="text" rows="25" cols="80"></textarea>
+    <br />
+    <label>E-Mail</label><input type="text" name="email" value="" />
   </div>
   <div class="right">
     <input type="file" name="image" />
