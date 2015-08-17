@@ -2,21 +2,42 @@
 {% block content %}
 <form method="POST" enctype="multipart/form-data">
   <input type="hidden" name="_METHOD" value="PUT"/>
+  <h2>Rezept {{ r.id }}</h2>
   <div class="left">
-    <label>Titel</label><input type="text" name="title" value="{{ r.title }}" />
-    <br />
-    <label>Untertitel</label><input type="text" name="subtitle" value="{{ r.subtitle }}" />
-    <br />
-    <label>Autoren</label><input type="text" name="authors" value="{{ r.authors }}" />
-    <br />
+    <label>Titel</label><input type="text" name="title" value="{{ r.title }}">
+    <br>
+    <label>Untertitel</label><input type="text" name="subtitle" value="{{ r.subtitle }}">
+    <br>
+    <label>Chef der Küche</label><input type="text" name="chef" value="{{ r.chef }}">
+    <br>
+    <label>Autoren</label><input type="text" name="authors" value="{{ r.authors }}">
+    <br>
+    <label>E-Mail</label><input type="text" name="email" value="{{ r.email }}">
+    <br>
+    <label>Zuletzt geändert</label><span>{{ r.updated_at }}</span>
+    <br>
     <label>Text</label><textarea name="text" rows="28" cols="80">{{ r.text }}</textarea>
-    <br />
-    <label>E-Mail</label><input type="text" name="email" value="{{ r.email }}" />
   </div>
   <div class="right">
-    <img src="data:image/png;base64,{{ image }}" max-height="500" width="100%"/>
-    <br />
-    <input type="file" name="image" />
+    {% if image1 %}
+    <img src="data:image/png;base64,{{ image1 }}" max-height="500" width="100%"/>
+    <br>
+    {% endif %}
+    <label>Bild 1</label><input type="file" name="image1">
+
+    {% if image2 %}
+    <br>
+    <img src="data:image/png;base64,{{ image2 }}" max-height="500" width="100%"/>
+    <br>
+    {% endif %}
+    <label>Bild 2</label><input type="file" name="image2">
+
+    {% if image3 %}
+    <br>
+    <img src="data:image/png;base64,{{ image3 }}" max-height="500" width="100%"/>
+    <br>
+    {% endif %}
+    <label>Bild 3</label><input type="file" name="image3">
   </div>
   <div class="full">
     <button type="submit">save</button>

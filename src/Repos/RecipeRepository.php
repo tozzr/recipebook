@@ -29,33 +29,47 @@ class RecipeRepository extends Repository {
       );
     }
 
-    function createRecipe($title, $subtitle, $authors, $email, $text, $image) {
+    function createRecipe($title, $subtitle, $chef, $authors, $email, $text, $image1, $image2, $image3) {
       $res = $this->countItems("recipe");
       $id = $this->create(
-        "INSERT INTO recipe (title, subtitle, authors, email, text, position) " .
-        "VALUES(:title, :subtitle, :authors, :email, :text, :pos)",
+        "INSERT INTO recipe (title, subtitle, chef, authors, email, text, position) " .
+        "VALUES(:title, :subtitle, :chef, :authors, :email, :text, :pos)",
         array(
           "title" => $title,
           "subtitle" => $subtitle,
+          "chef" => $chef,
           "authors" => $authors,
           "email" => $email,
           "text" => $text,
           "pos" => $res['count']
         )
       );
-      if ($image)
+      if ($image1)
         $this->saveBlob(
-          "UPDATE recipe SET image = :image WHERE id = :id",
+          "UPDATE recipe SET image1 = :image WHERE id = :id",
           $id,
-          $image
+          $image1
+        );
+      if ($image2)
+        $this->saveBlob(
+          "UPDATE recipe SET image2 = :image WHERE id = :id",
+          $id,
+          $image2
+        );
+      if ($image3)
+        $this->saveBlob(
+          "UPDATE recipe SET image3 = :image WHERE id = :id",
+          $id,
+          $image3
         );
       return $id;
     }
 
-    function updateRecipe($id, $title, $subtitle, $authors, $email, $text, $image) {
+    function updateRecipe($id, $title, $subtitle, $chef, $authors, $email, $text, $image1, $image2, $image3) {
       $this->query(
         "UPDATE recipe SET title = :title, " .
         "subtitle = :subtitle, " .
+        "chef = :chef, " .
         "authors = :authors, " .
         "email = :email, " .
         "text = :text " .
@@ -64,16 +78,29 @@ class RecipeRepository extends Repository {
           "id" => $id,
           "title" => $title,
           "subtitle" => $subtitle,
+          "chef" => $chef,
           "authors" => $authors,
           "email" => $email,
           "text" => $text
         )
       );
-      if ($image)
+      if ($image1)
         $this->saveBlob(
-          "UPDATE recipe SET image = :image WHERE id = :id",
+          "UPDATE recipe SET image1 = :image WHERE id = :id",
           $id,
-          $image
+          $image1
+        );
+      if ($image2)
+        $this->saveBlob(
+          "UPDATE recipe SET image2 = :image WHERE id = :id",
+          $id,
+          $image2
+        );
+      if ($image3)
+        $this->saveBlob(
+          "UPDATE recipe SET image3 = :image WHERE id = :id",
+          $id,
+          $image3
         );
     }
 

@@ -15,17 +15,19 @@
 
 <table cellspacing="0" cellpadding="0">
   <colspan>
-    <col width="5%" />
-    <col width="35%" />
-    <col width="30%" />
-    <col width="5%" />
-    <col width="5%" />
-    <col width="10%" />
+    <col width="5%">
+    <col>
+    <col>
+    <col>
+    <col>
+    <col>
+    <col width="10%">
   </colspan>
   <tbody>
     <tr>
-      <th></th>
+      <th>ID</th>
       <th>Rezept</th>
+      <th>Chef der Küche</th>
       <th>Author</th>
       <th></th>
       <th></th>
@@ -35,6 +37,7 @@
     <tr {% if activeId == r.id %}class="active"{% endif %}>
         <td>{{ r.id }}</td>
         <td>{{ r.title }}</td>
+        <td>{{ r.chef }}</td>
         <td>{{ r.authors }}</td>
         <td><a href="/recipes/{{ r.id }}" class="action">edit</a></td>
         <td><a href="javascript:confirmDelete({{ r.id }});" class="action">delete</a></td>
@@ -51,8 +54,9 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="5"></td>
-      <td><a href="/recipes/form" class="action">add</a></td>
+      <td colspan="7" style="text-align: right;">
+        Anzahl: {{ itemCount }} <a href="/recipes/form" class="action">add</a>
+      </td>
     </tr>
   </tfoot>
 </table>

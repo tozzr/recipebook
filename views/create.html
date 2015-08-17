@@ -1,19 +1,24 @@
 {% extends "layout.html" %}
 {% block content %}
 <form action="/recipes" method="POST" enctype="multipart/form-data">
+  <h2>Neues Rezept</h2>
   <div class="left">
-    <label>Titel</label><input type="text" name="title" value="" />
-    <br />
-    <label>Untertitel</label><input type="text" name="subtitle" value="" />
-    <br />
-    <label>Autoren</label><input type="text" name="authors" value="" />
-    <br />
+    <label>Titel</label><input type="text" name="title" value="">
+    <br>
+    <label>Untertitel</label><input type="text" name="subtitle" value="">
+    <br>
+    <label>Chef der Küche</label><input type="text" name="chef" value="">
+    <br>
+    <label>Autoren</label><input type="text" name="authors" value="">
+    <br>
+    <label>E-Mail</label><input type="text" name="email" value="">
+    <br>
     <label>Text</label><textarea name="text" rows="28" cols="80"></textarea>
-    <br />
-    <label>E-Mail</label><input type="text" name="email" value="" />
   </div>
   <div class="right">
-    <input type="file" name="image" />
+    <input type="file" name="image1">
+    <input type="file" name="image2">
+    <input type="file" name="image3">
   </div>
   <div class="full">
     <button type="submit">save</button>
