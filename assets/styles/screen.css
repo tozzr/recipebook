@@ -44,10 +44,15 @@ body {
   margin: auto;
 }
 
+#topMenu section {
+  float: right;
+  padding-right: 1em;
+}
+
 #topMenu a {
   color: #333;
   text-decoration: none;
-  padding: 0.25em;
+  padding: 0.25em 0.5em 0.25em 0.5em;
   margin: 0em;
   background: #CCC;
   border-radius: 0.25em;
@@ -60,6 +65,7 @@ body {
 table {
   background: #FFF;
   margin: 1.5em 0 0 0;
+  width: 100%;
 }
 
 tr {
@@ -128,6 +134,7 @@ a.action {
   padding: 0.25em 0.5em 0.25em 0.5em;
   text-decoration: none;
   border: 1px solid #AAA;
+  display: inline-block;
 }
 a.action:hover {
   background: #666;

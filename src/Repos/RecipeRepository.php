@@ -8,7 +8,7 @@ class RecipeRepository extends Repository {
 
     function findRecipes() {
       return $this->findItems(
-        "SELECT * FROM recipe ORDER BY position ASC;"
+        "SELECT r.*, c.name AS category  FROM recipe r, category c WHERE r.category = c.id ORDER BY r.position ASC;"
       );
     }
 
@@ -29,14 +29,15 @@ class RecipeRepository extends Repository {
       );
     }
 
-    function createRecipe($title, $subtitle, $chef, $authors, $email, $text, $image1, $image2, $image3) {
+    function createRecipe($title, $subtitle, $category, $chef, $authors, $email, $text, $image1, $image2, $image3) {
       $res = $this->countItems("recipe");
       $id = $this->create(
-        "INSERT INTO recipe (title, subtitle, chef, authors, email, text, position) " .
-        "VALUES(:title, :subtitle, :chef, :authors, :email, :text, :pos)",
+        "INSERT INTO recipe (title, subtitle, category, chef, authors, email, text, position) " .
+        "VALUES(:title, :subtitle, :category, :chef, :authors, :email, :text, :pos)",
         array(
           "title" => $title,
           "subtitle" => $subtitle,
+          "category" => $category,
           "chef" => $chef,
           "authors" => $authors,
           "email" => $email,
@@ -65,10 +66,11 @@ class RecipeRepository extends Repository {
       return $id;
     }
 
-    function updateRecipe($id, $title, $subtitle, $chef, $authors, $email, $text, $image1, $image2, $image3) {
+    function updateRecipe($id, $title, $subtitle, $category, $chef, $authors, $email, $text, $image1, $image2, $image3) {
       $this->query(
         "UPDATE recipe SET title = :title, " .
         "subtitle = :subtitle, " .
+        "category = :category, " .
         "chef = :chef, " .
         "authors = :authors, " .
         "email = :email, " .
@@ -78,6 +80,7 @@ class RecipeRepository extends Repository {
           "id" => $id,
           "title" => $title,
           "subtitle" => $subtitle,
+          "category" => $category,
           "chef" => $chef,
           "authors" => $authors,
           "email" => $email,
@@ -106,6 +109,10 @@ class RecipeRepository extends Repository {
 
     function deleteRecipe($id) {
       $this->delete("recipe", $id);
+      $this->query(
+        "SET @position := -1;" .
+        "UPDATE recipe SET position = (@position := @position + 1);"
+      );
     }
 }
 

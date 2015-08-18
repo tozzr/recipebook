@@ -4,8 +4,10 @@ ini_set('display_errors', 1);
 
 require 'vendor/autoload.php';
 require 'src/Repos/RecipeRepository.php';
+require 'src/Repos/CategoryRepository.php';
 
 $repo = new \Recipebook\Repos\RecipeRepository();
+$catRepo = new \Recipebook\Repos\CategoryRepository();
 
 $app = new \Slim\Slim(array(
     'templates.path' => './views',
@@ -30,8 +32,10 @@ $app->get('/recipes(/)', function() use($app, $repo) {
   ));
 });
 
-$app->get('/recipes/form', function () use($app) {
-  $app->render('create.html');
+$app->get('/recipes/form', function () use($app, $catRepo) {
+  $app->render('create.html', array(
+    'categories' => $catRepo->findCategories()
+  ));
 })->name('create-form');
 
 function getImage($name) {
@@ -47,6 +51,7 @@ $app->post('/recipes', function() use($app, $repo){
   $id = $repo->createRecipe(
     $app->request->post('title'),
     $app->request->post('subtitle'),
+    $app->request->post('category'),
     $app->request->post('chef'),
     $app->request->post('authors'),
     $app->request->post('email'),
@@ -58,10 +63,11 @@ $app->post('/recipes', function() use($app, $repo){
   $app->redirect('/recipes/' . $id);
 })->name('create');
 
-$app->get('/recipes/:id', function ($id) use($app, $repo) {
+$app->get('/recipes/:id', function ($id) use($app, $repo, $catRepo) {
   $r = $repo->findRecipe($id);
   $app->render('edit.html', array(
     'r' => $r,
+    'categories' => $catRepo->findCategories(),
     'image1' => utf8_encode(base64_encode($r['image1'])),
     'image2' => utf8_encode(base64_encode($r['image2'])),
     'image3' => utf8_encode(base64_encode($r['image3']))
@@ -73,6 +79,7 @@ $app->put('/recipes/:id', function ($id) use($app, $repo) {
     $id,
     $app->request->post('title'),
     $app->request->post('subtitle'),
+    $app->request->post('category'),
     $app->request->post('chef'),
     $app->request->post('authors'),
     $app->request->post('email'),

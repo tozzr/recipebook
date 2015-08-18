@@ -8,6 +8,17 @@
     <br>
     <label>Untertitel</label><input type="text" name="subtitle" value="{{ r.subtitle }}">
     <br>
+    <label>Kategorie</label>
+    <select name="category">
+      {% for c in categories %}
+        {% if c.id == r.category %}
+        <option value="{{ c.id }}" selected>{{ c.name }}</option>
+        {% else %}
+        <option value="{{ c.id }}">{{ c.name }}</option>
+        {% endif %}
+      {% endfor %}
+    </select>
+    <br>
     <label>Chef der Küche</label><input type="text" name="chef" value="{{ r.chef }}">
     <br>
     <label>Autoren</label><input type="text" name="authors" value="{{ r.authors }}">

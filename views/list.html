@@ -2,7 +2,7 @@
 {% block content %}
 <script>
   function confirmDelete(id) {
-    if (confirm('delete?')) {
+    if (confirm('Wirklich löschen?')) {
       $form = document.getElementById('deleteForm');
       $form.action = '/recipes/' + id;
       $form.submit();
@@ -21,24 +21,24 @@
     <col>
     <col>
     <col>
-    <col width="10%">
+    <col>
   </colspan>
   <tbody>
     <tr>
-      <th>ID</th>
+      <th>Nr</th>
       <th>Rezept</th>
       <th>Chef der Küche</th>
-      <th>Author</th>
+      <th>Kategorie</th>
       <th></th>
       <th></th>
       <th></th>
     </tr>
     {% for r in recipes %}
     <tr {% if activeId == r.id %}class="active"{% endif %}>
-        <td>{{ r.id }}</td>
+        <td>{{ r.position+1 }}</td>
         <td>{{ r.title }}</td>
-        <td>{{ r.chef }}</td>
-        <td>{{ r.authors }}</td>
+        <td title="{{ r.authors }} <{{ r.email }}>">{{ r.chef }}</td>
+        <td>{{ r.category }}</td>
         <td><a href="/recipes/{{ r.id }}" class="action entypo-pencil" title="bearbeiten"></a></td>
         <td><a href="javascript:confirmDelete({{ r.id }});" class="action entypo-erase" title="löschen"></a></td>
         <td>
@@ -54,8 +54,8 @@
   </tbody>
   <tfoot>
     <tr>
-      <td colspan="7" style="text-align: right;">
-        Anzahl: {{ itemCount }} <a href="/recipes/form" class="action">add</a>
+      <td colspan="6" style="text-align: right;">
+        Anzahl: {{ itemCount }}
       </td>
     </tr>
   </tfoot>
