@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Rezeptbuch für Anke und Martin</title>
-    <meta charset="UTF-8" />
-    <link rel="stylesheet" href="/assets/screen.css">
+    <title>Rezeptbuch für Martin und Anke</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="/assets/styles/screen.css">
   </head>
   <body>
     <div id="topMenu">
       <h1>Rezeptbuch für Martin und Anke</h1>
-      <a href="/recipes/form">+</a>
-      <a href="/recipes">list</a>
+      <a href="/recipes/form" class="entypo-plus"></a>
+      <a href="/recipes" class="entypo-list"></a>
+      <a href="/recipes/book" title="als Buch anzeigen" class="entypo-book-open"></a>
     </div>
     {% block content %}{% endblock %}
   </body>

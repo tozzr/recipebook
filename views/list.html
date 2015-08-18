@@ -39,14 +39,14 @@
         <td>{{ r.title }}</td>
         <td>{{ r.chef }}</td>
         <td>{{ r.authors }}</td>
-        <td><a href="/recipes/{{ r.id }}" class="action">edit</a></td>
-        <td><a href="javascript:confirmDelete({{ r.id }});" class="action">delete</a></td>
+        <td><a href="/recipes/{{ r.id }}" class="action entypo-pencil" title="bearbeiten"></a></td>
+        <td><a href="javascript:confirmDelete({{ r.id }});" class="action entypo-erase" title="löschen"></a></td>
         <td>
             {% if not loop.first %}
-              <a href="/recipes/?id={{ r.id }}&pos={{ r.position-1 }}" class="action">up</a>
+              <a href="/recipes/?id={{ r.id }}&pos={{ r.position-1 }}" class="action entypo-up" title="nach oben"></a>
             {% endif %}
             {% if not loop.last %}
-              <a href="/recipes/?id={{ r.id }}&pos={{ r.position+1 }}" class="action">down</a>
+              <a href="/recipes/?id={{ r.id }}&pos={{ r.position+1 }}" class="action entypo-down" title="nach unten"></a>
             {% endif %}
         </td>
       </tr>
